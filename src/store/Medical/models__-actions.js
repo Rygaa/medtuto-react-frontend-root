@@ -1,6 +1,6 @@
 import axios from "axios"
 import { modelsActions } from "./joho__-slice"
-import { url } from "../../_globalVar/_ip"
+import { url } from "_globalVar/_ip"
 
 
 
@@ -94,7 +94,7 @@ export const createNewModel__ = ({ idToken, yearPubId, newModelName, newModelInd
         formData.append("newModelIndex", newModelIndex);
         formData.append("description", description);
         formData.append("files", picture1);
-        formData.append("files", picture2);
+        // formData.append("files", picture2);
         const response = await axios.post(url + `/add-years-model`, formData)
 
         const data = response.data

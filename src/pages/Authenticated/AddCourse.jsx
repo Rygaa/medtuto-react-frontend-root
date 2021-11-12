@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
-import { removeCourse__, requestModels__, createNewCourse__ } from '../../store/proxy'
-import { requestFaculties__ } from '../../store/proxy'
-import { requestCourses2__ } from "../../store/proxy"
-import {requestYears__ } from "../../store/proxy"
+import { removeCourse__, requestModels__, createNewCourse__ } from 'store/proxy'
+import { requestFaculties__ } from 'store/proxy'
+import { requestCourses2__ } from "store/proxy"
+import { requestYears__ } from "store/proxy"
+import classes from "assets/6-pages/AddCourse.module.scss"
 
-
-import Course__ from "../../components/Course__";
+import Course__ from "components/Course__";
 
 const AddCourse = (props) => {
     const idToken = useSelector((state) => state.user.idToken);
@@ -29,19 +29,19 @@ const AddCourse = (props) => {
     }, [])
 
     const facultiesSelectOnChange = (e) => {
-        setSelectedFaculty(e.pubId)
-        dispatch(requestYears__({ idToken, facultyPubId: e.pubId }))
+        setSelectedFaculty(e.target.value)
+        dispatch(requestYears__({ idToken, facultyPubId: e.target.value }))
     }
 
     const yearsSelectOnChange = (e) => {
-        setSelectedYear(e.pubId)
-        dispatch(requestModels__({ idToken, yearPubId: e.pubId }))
+        setSelectedYear(e.target.value)
+        dispatch(requestModels__({ idToken, yearPubId: e.target.value }))
     }
     const modelsSelectOnChange = (e) => {
         console.log(e);
-        setSelectedModel(e.pubId)
+        setSelectedModel(e.target.value)
         console.log('selected:', selectedModel);
-        dispatch(requestCourses2__({ idToken, modelPubId: e.pubId}))
+        dispatch(requestCourses2__({ idToken, modelPubId: e.target.value}))
     }
 
     const newCourseNameOnChange = (e) => {
@@ -57,21 +57,30 @@ const AddCourse = (props) => {
 
 
 
-    const facultiesList = faculties.map((faculty) => (
-        { key: Math.random(), value: faculty.name, label: faculty.name, pubId: faculty.pubId }
-    ));
-    const yearsList = years.map((year) => (
-        { key: Math.random(), value: year.name, label: year.name, pubId: year.pubId }
-    ));
-    const modelsList = models.map((model) => (
-        { key: Math.random(), value: model.name, label: model.name, pubId: model.pubId }
-    ));
+    const facultiesList = [
+        <option value={'select'} selected disabled>Please</option>
+    ]
+    facultiesList.push(faculties.map((faculty) => (
+        <option value={faculty.pubId} label={faculty.name}>{faculty.name}</option>
 
-    const removeOnClick = (e) => {
-        console.log(e.target.attributes[0].nodeValue)
-        const coursePubId = e.target.attributes[0].nodeValue
-        dispatch(removeCourse__({ idToken, modelPubId: selectedModel, coursePubId }))
-    }
+    )));
+    const yearsList = [
+        <option value={'select'} selected disabled>Please</option>
+    ]
+    yearsList.push(years.map((year) => (
+        <option value={year.pubId} label={year.name}>{year.name}</option>
+
+    )));
+    const modelsList = [
+        <option value={'select'} selected disabled>Please</option>
+    ]
+    
+    modelsList.push(models.map((model) => (
+        <option value={model.pubId} label={model.name}>{model.name}</option>
+
+    )));
+
+
     const coursesList = courses.map((course) => (
         <Course__ 
             faculty={selectedFaculty} 
@@ -84,17 +93,21 @@ const AddCourse = (props) => {
     ));
 
     return (
-        <div style={{ backgroundColor: "gray", gridColumn: "3 / 4", gridRow: "2 / 3", border:"5px solid black" }}>
-            <Select options={facultiesList} placeholder='Choose your faculty' onChange={facultiesSelectOnChange}></Select>
-            <Select options={yearsList} placeholder='Choose your year' onChange={yearsSelectOnChange}></Select>
-            <Select options={modelsList} placeholder='Choose your model' onChange={modelsSelectOnChange}></Select>
-            <div style={{ height: "200px", overflowY: "scroll" }}>
+        <section className={classes['course-section']}>
+            <div className={classes['select-container']}>
+                <select placeholder='Choose your faculty' onChange={facultiesSelectOnChange}>{facultiesList}</select>
+                <select placeholder='Choose your year' onChange={yearsSelectOnChange}>{yearsList}</select>
+                <select placeholder='Choose your model' onChange={modelsSelectOnChange}>{modelsList}</select>
+            </div>
+            <div className={classes['course-container']}>
                 {coursesList}
             </div>
-            <input value={newCourseName} onChange={newCourseNameOnChange} />
-            <input value={newCourseIndex} onChange={newCourseIndexOnChange} />
-            <button onClick={newCourseOnClick}>ADD</button>
-        </div>
+            <form className={classes['form-add-course']}>
+                <input placeholder={'Name'} value={newCourseName} onChange={newCourseNameOnChange} />
+                <input placeholder={'Index'} value={newCourseIndex} onChange={newCourseIndexOnChange} />
+                <button onClick={newCourseOnClick}>ADD</button>
+            </form>
+        </section>
 
 
     );

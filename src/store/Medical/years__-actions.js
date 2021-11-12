@@ -1,6 +1,6 @@
 import axios from "axios"
 import { modelsActions } from "./joho__-slice"
-import { url } from "../../_globalVar/_ip"
+import { url } from "_globalVar/_ip"
 
 
 

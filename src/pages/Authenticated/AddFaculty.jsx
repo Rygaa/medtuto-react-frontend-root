@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { requestFaculties__, createNewFaculty__ } from '../../store/proxy'
+import { requestFaculties__, createNewFaculty__ } from 'store/proxy'
 
 
-import classes from "../../assets/6-pages/root/AddFaculty.module.scss"
-import Faculty__ from "../../components/Faculty__";
+import classes from "assets/6-pages/AddFaculty.module.scss"
+import Faculty__ from "components/Faculty__";
 
 const AddFaculty = (props) => {
     const dispatch = useDispatch();

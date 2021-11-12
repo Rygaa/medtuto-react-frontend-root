@@ -1,0 +1,31 @@
+@import 'assets/main.scss' ;
+
+.faculty {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: min-content min-content min-content min-content;
+    grid-column-gap: 1rem;
+    align-items: center;
+    > input {
+        @include mini-title-font();
+        color: $font-color1;
+        // margin-left: 2rem;
+        background-color: transparent;
+        height: 100%;
+        width: 15rem;
+        border-radius: 5px;
+        border: 1px solid $color3;
+        padding-left: 1rem;
+    }
+    > input:focus {
+        outline: none
+    }
+    > button {
+        @include mini-title-font();
+        background-color: $color2;
+        color: $color3;
+        border-radius: 5px;
+        padding: .5rem 2rem;
+        border: 1px solid $color4;
+    }
+}

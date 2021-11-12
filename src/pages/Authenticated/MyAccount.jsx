@@ -1,14 +1,3 @@
-// import classes from './Header.module.scss'
-// import { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { NavLink, useParams, useLocation } from "react-router-dom"
-// import Select from 'react-select'
-// import Model from "../../components/Model"
-// import Course from "../../components/Course"
-// import carta from "../../img/carta.png"
-// import carta1 from "../../img/carta1.png"
-// import classes from "./Courses.module.scss"
-
 
 const MyAccount = (props) => {
  

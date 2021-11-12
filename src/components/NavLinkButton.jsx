@@ -1,6 +1,6 @@
 // import classes from './NavLinkButton.module.scss'
 import { NavLink } from "react-router-dom"
-import classes from '../assets/5-components/NavLinkButton.module.scss'
+import classes from 'assets/5-components/NavLinkButton.module.scss'
 const NavLinkButton = (props) => {
     return (
         <NavLink to={props.path} className={classes.navLink}>

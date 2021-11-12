@@ -3,15 +3,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { login } from '../../store/User/user-actions'
-import classes from '../../assets/6-pages/Login.module.scss'
-import img from "../../img/email.png"
-
+import { login } from 'store/User/user-actions'
+import classes from 'assets/6-pages/Login.module.scss'
+import img from "img/email.png"
 import { styled } from '@stitches/react';
 import { CheckIcon } from '@radix-ui/react-icons';
 import { violet, blackA } from '@radix-ui/colors';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import { ToastContainer, toast } from 'react-toastify';
+
 const Login = (props) => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState('');

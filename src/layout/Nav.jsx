@@ -1,12 +1,4 @@
-// import classes from './Header.module.scss'
-import { NavLink } from "react-router-dom"
-import NavLinkButton from '../components/NavLinkButton';
-import classes from '../assets/4-layout/Nav.module.scss'
-
-import signupIMG from '../img/sign up.png'
-import aboutusIMG from '../img/about us.png'
-import loginIMG from '../img/login.png'
-import logo from '../img/logo.png'
+import classes from 'assets/4-layout/Nav.module.scss'
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
@@ -15,7 +7,6 @@ import RightNav from "./RightNav";
 import LeftNav from "./LeftNav";
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 const customStyles = {
     content: {

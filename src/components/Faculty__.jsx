@@ -1,8 +1,8 @@
 // import classes from './Header.module.scss'
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeFaculty__, updateFaculty__ } from "../store/proxy";
-import classes from "../assets/6-pages/root/AddFaculty.module.scss"
+import { removeFaculty__, updateFaculty__ } from "store/proxy";
+import classes from "assets/5-components/root/Faculty__.module.scss"
 
 const Faculty__ = (props) => {
     const dispatch = useDispatch();

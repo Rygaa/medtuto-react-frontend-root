@@ -1,8 +1,8 @@
 // import classes from './Header.module.scss'
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeYear__, updateModel__ } from "../store/proxy";
-import classes from "../assets/6-pages/root/AddFaculty.module.scss"
+import { removeYear__, updateModel__ } from "store/proxy";
+import classes from "assets/5-components/root/Course__.module.scss"
 
 const Course__ = (props) => {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Course__ = (props) => {
     }
 
     return (
-        <div className={classes['faculty']} data-pubid={props.pubId}>
+        <div className={classes['course']} data-pubid={props.pubId}>
             <input key={Math.random()} defaultValue={props.name} />
             <input key={Math.random()} defaultValue={props.index} />
             <button onClick={removeOnClick} data-pubid={props.pubId}>Remove</button>

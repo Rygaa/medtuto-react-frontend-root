@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom"
-import classes from '../assets/4-layout/LeftNav.module.scss'
+import classes from 'assets/4-layout/LeftNav.module.scss'
 
 
 const LeftNav = (props) => {
@@ -20,9 +20,8 @@ const LeftNav = (props) => {
     return (
         <nav className={props.dropdown ? classes['left-nav-dropdown'] : classes['left-nav']}>
             <NavLink to={'/home'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Home</NavLink>
-            <NavLink to={'/models'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Learning</NavLink>
-            <NavLink to={'/about-us'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>About us</NavLink>
-            <NavLink to={'/contact'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Contact</NavLink>
+            <NavLink to={'/medical'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Medical</NavLink>
+            <NavLink to={'/user'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>User</NavLink>
         </nav> 
     )
 }

@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select'
-import { requestFaculties__, requestYears__, createNewModel__, requestModels__ } from '../../store/proxy'
+import { requestFaculties__, requestYears__, createNewModel__, requestModels__ } from 'store/proxy'
 
-import Model__ from "../../components/Model__";
-
+import Model__ from "components/Model__";
+import classes from "assets/6-pages/AddModel.module.scss"
 const AddModel = (props) => {
     const dispatch = useDispatch();
     const idToken = useSelector((state) => state.user.idToken);
@@ -25,13 +25,13 @@ const AddModel = (props) => {
 
 
     const facultiesSelectOnChange = (e) => {
-        setSelectedFaculty(e.pubId)
-        dispatch(requestYears__({ idToken, facultyPubId: e.pubId }))
+        setSelectedFaculty(e.target.value)
+        dispatch(requestYears__({ idToken, facultyPubId: e.target.value }))
     }
 
     const yearsSelectOnChange = (e) => {
-        setSelectedYear(e.pubId)
-        dispatch(requestModels__({ idToken, yearPubId: e.pubId }))
+        setSelectedYear(e.target.value)
+        dispatch(requestModels__({ idToken, yearPubId: e.target.value }))
     }
 
 
@@ -50,7 +50,7 @@ const AddModel = (props) => {
             newModelName: newModelName,
             newModelIndex: newModelIndex,
             picture1: imgInputRef.current.files[0],
-            picture2: img2InputRef.current.files[0]
+            // picture2: img2InputRef.current.files[0]
         }));
     }
 
@@ -58,12 +58,19 @@ const AddModel = (props) => {
         dispatch(requestFaculties__({ idToken }))
     }, [])
 
-    const facultiesList = faculties.map((faculty) => (
-        { key: Math.random(), value: faculty.name, label: faculty.name, pubId: faculty.pubId }
-    ));
-    const yearsList = years.map((year) => (
-        { key: Math.random(), value: year.name, label: year.name, pubId: year.pubId }
-    ));
+    const facultiesList = [
+        <option value={'select'} selected disabled>Please</option>
+    ]
+    
+    facultiesList.push(faculties.map((faculty) => (
+        <option value={faculty.pubId} label={faculty.name}>{faculty.name}</option>
+    )));
+    const yearsList = [
+        <option value={'select'} selected disabled>Please</option>
+    ]
+    yearsList.push(years.map((year) => (
+        <option value={year.pubId} label={year.name}>{year.name}</option>
+    )));
 
     const modelsList = models.map((model) => (
         <Model__ faculty={selectedFaculty} year={selectedYear} pubId={model.pubId} name={model.name} index={model.index}/>
@@ -71,19 +78,24 @@ const AddModel = (props) => {
 
 
     return (
-        <div style={{ backgroundColor: "gray", gridColumn: "1 / 2", gridRow: "2 / 3", border: "5px solid gray"  }}>
-            <Select options={facultiesList} placeholder='Choose your faculty' onChange={facultiesSelectOnChange}></Select>
-            <Select options={yearsList} placeholder='Choose your year' onChange={yearsSelectOnChange}></Select>
-            <div style={{ height: "200px", overflowY: "scroll" }}>
-            {modelsList}
+        <section className={classes['model-section']}>
+            <div className={classes['select-container']}>
+                <select placeholder='Choose your faculty' onChange={facultiesSelectOnChange}>{facultiesList}</select>
+                <select placeholder='Choose your year' onChange={yearsSelectOnChange}>{yearsList}</select>
             </div>
-            <input type="file" type="file" ref={imgInputRef}></input>
-            <input type="file" type="file" ref={img2InputRef}></input>
-
-            <input value={newModelName} onChange={newModelNameOnChange} />
-            <input value={newModelIndex} onChange={newModelIndexOnChange} />
-            <button onClick={newModelOnClick}>ADD</button>
-        </div>
+            <div className={classes['model-container']}>
+                {modelsList}
+            </div>
+            <form className={classes['form-add-model']}>
+                <label>
+                    <button>Upload picture</button>
+                    <input type="file" type="file" ref={imgInputRef}></input>
+                </label>
+                <input value={newModelName} onChange={newModelNameOnChange} />
+                <input value={newModelIndex} onChange={newModelIndexOnChange} />
+                <button onClick={newModelOnClick}>ADD</button>
+            </form>
+        </section>
 
 
     );

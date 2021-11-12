@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import classes from "../../assets/6-pages/root/Root__.module.scss"
+import classes from "assets/6-pages/Root__.module.scss"
 import AddFaculty from "./AddFaculty";
 import AddYear from "./AddYear";
 import AddModel from "./AddModel";

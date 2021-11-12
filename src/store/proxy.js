@@ -6,8 +6,6 @@ import { requestCourses2__, requestCourses__, createNewCourse__, removeCourse__,
 
 
 
-
-
 // exports.module.requestFaculties = requestFaculties;
 export { requestFaculties__, requestYears__, requestModels__, requestCourses__, requestCourses2__ };
 export { createNewFaculty__, createNewYear__, createNewModel__, createNewCourse__ };

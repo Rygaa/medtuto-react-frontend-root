@@ -1,17 +1,9 @@
 // import classes from './Header.module.scss'
 import { NavLink } from "react-router-dom"
-import NavLinkButton from '../components/NavLinkButton';
-import classes from '../assets/4-layout/RightNav.module.scss'
-import classNames from 'classnames/bind';
-import signupIMG from '../img/sign up.png'
-import aboutusIMG from '../img/about us.png'
-import loginIMG from '../img/login.png'
-import logo from '../img/logo.png'
+import classes from 'assets/4-layout/RightNav.module.scss'
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { useRef } from "react";
 import { useEffect } from "react";
-import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 const RightNav = (props) => {
     const isConnected = useSelector((state) => state.user.isConnected)
     const [NavDropdown, setNavDropDown] = useState(false);
@@ -28,7 +20,6 @@ const RightNav = (props) => {
     return (!isConnected ? 
         <nav className={props.dropdown ? classes['right-nav-dropdown'] : classes['right-nav']}>
             <NavLink to={'/login'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Login</NavLink>
-            <NavLink to={'/sign-up'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Sign up</NavLink>
         </nav> : 
         <nav className={props.dropdown ? classes['right-nav-dropdown'] : classes['right-nav']}>
             <NavLink to={'/my-account'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Profile</NavLink>

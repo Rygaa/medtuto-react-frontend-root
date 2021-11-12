@@ -1,16 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
-import Header from './layout/Header';
 import Layout from './layout/Layout';
-import { Route, Router, Switch } from 'react-router';
-import Login from './pages/notAuthenticated/Login';
-
+import { Route, Switch } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { checkIdToken } from './store/User/user-actions'
 import { userActions } from './store/User/user-slice'
 import MyAccount from './pages/Authenticated/MyAccount';
 import Root__ from './pages/Authenticated/Root__';
+import Login from 'pages/notAuthenticated/Login';
 
 
 function App() {
@@ -29,11 +26,16 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route path="/root" exact>
+        <Route path="/medical" exact>
           <Root__></Root__>
+        </Route>
+        <Route path="/user" exact>
         </Route>
         <Route path="/myaccount" exact>
           <MyAccount></MyAccount>
+        </Route>
+        <Route path="/login" exact>
+          <Login />
         </Route>
       </Switch>
     </Layout>
