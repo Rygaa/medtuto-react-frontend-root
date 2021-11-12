@@ -2,20 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { signUp } from '../../store/user-actions'
-import { userActions } from "../../store/user-slice";
 import Select from 'react-select'
-import { createNewYear, removeModel, requestFaculties, createNewModel, requestModels, requestYears } from '../../store/models-actions'
+import { requestFaculties__, requestYears__, createNewModel__, requestModels__ } from '../../store/proxy'
+
+import Model__ from "../../components/Model__";
 
 const AddModel = (props) => {
-    const idToken = useSelector((state) => state.user.idToken);
     const dispatch = useDispatch();
+    const idToken = useSelector((state) => state.user.idToken);
     const faculties = useSelector((state) => state.models.faculties);
     const years = useSelector((state) => state.models.years);
     const models = useSelector((state) => state.models.models);
 
-    const [newModel, setNewModel] = useState('');
+    const [newModelName, setNewModelName] = useState('');
+    const [newModelIndex, setNewModelIndex] = useState('');
     const [selectedFaculty, setSelectedFaculty] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
 
@@ -26,31 +26,36 @@ const AddModel = (props) => {
 
     const facultiesSelectOnChange = (e) => {
         setSelectedFaculty(e.pubId)
-        dispatch(requestYears({ idToken, facultyPubId: e.pubId }))
+        dispatch(requestYears__({ idToken, facultyPubId: e.pubId }))
     }
 
     const yearsSelectOnChange = (e) => {
         setSelectedYear(e.pubId)
-        dispatch(requestModels({ idToken, yearPubId: e.pubId }))
+        dispatch(requestModels__({ idToken, yearPubId: e.pubId }))
     }
 
 
-    const newModelOnChange = (e) => {
-        setNewModel(e.target.value);
+    const newModelNameOnChange = (e) => {
+        setNewModelName(e.target.value);
     }
+    const newModelIndexOnChange = (e) => {
+        setNewModelIndex(e.target.value);
+    }
+
     const newModelOnClick = (e) => {
-        dispatch(createNewModel({ 
+        dispatch(createNewModel__({
             idToken, 
             yearPubId: selectedYear, 
             description: "x", 
-            modelName: newModel,
+            newModelName: newModelName,
+            newModelIndex: newModelIndex,
             picture1: imgInputRef.current.files[0],
             picture2: img2InputRef.current.files[0]
         }));
     }
 
     useEffect(() => {
-        dispatch(requestFaculties({ idToken }))
+        dispatch(requestFaculties__({ idToken }))
     }, [])
 
     const facultiesList = faculties.map((faculty) => (
@@ -60,19 +65,9 @@ const AddModel = (props) => {
         { key: Math.random(), value: year.name, label: year.name, pubId: year.pubId }
     ));
 
-
-    const removeOnClick = (e) => {
-        console.log(e.target.attributes[0].nodeValue)
-        const modelPubId = e.target.attributes[0].nodeValue
-        dispatch(removeModel({ idToken, modelPubId, yearPubId: selectedYear }))
-    }
     const modelsList = models.map((model) => (
-        <div style={{ display: "flex" }}>
-            <p key={Math.random()}>{model.name} {model.pubId}</p>
-            <button onClick={removeOnClick} data-pubid={model.pubId}>Remove</button>
-        </div>
+        <Model__ faculty={selectedFaculty} year={selectedYear} pubId={model.pubId} name={model.name} index={model.index}/>
     ));
-
 
 
     return (
@@ -85,7 +80,8 @@ const AddModel = (props) => {
             <input type="file" type="file" ref={imgInputRef}></input>
             <input type="file" type="file" ref={img2InputRef}></input>
 
-            <input value={newModel} onChange={newModelOnChange} />
+            <input value={newModelName} onChange={newModelNameOnChange} />
+            <input value={newModelIndex} onChange={newModelIndexOnChange} />
             <button onClick={newModelOnClick}>ADD</button>
         </div>
 

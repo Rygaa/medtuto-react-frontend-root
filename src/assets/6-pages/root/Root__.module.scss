@@ -1,0 +1,24 @@
+@import '../../main.scss' ;
+
+
+.Root__ {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    > select {
+        align-self: center;
+        width: 250px;
+        height: 50px;
+        background-color: $color3;
+        border: none;
+        border-radius: 5px;
+        @include mini-title-font;
+        padding-left: 1rem;
+    }
+    > select:focus {
+        outline: none;
+    }
+    > select:hover  {
+        outline: 3px solid rgba($color3, 55%);
+    }
+}

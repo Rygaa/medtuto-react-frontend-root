@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import { userActions } from "./user-slice"
-import { socket } from '../App'
+import { socket } from '../../App'
 import { useHistory } from "react-router"
-import { url } from "../_globalVar/_ip"
+import { url } from "../../_globalVar/_ip"
 import { ToastContainer, toast } from 'react-toastify';
 
 export const signUp = ({ username, password, email, history }) => {

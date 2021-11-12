@@ -25,11 +25,14 @@ const RightNav = (props) => {
 
     }, [])
 
-    return (
+    return (!isConnected ? 
         <nav className={props.dropdown ? classes['right-nav-dropdown'] : classes['right-nav']}>
             <NavLink to={'/login'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Login</NavLink>
             <NavLink to={'/sign-up'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Sign up</NavLink>
-        </nav> 
+        </nav> : 
+        <nav className={props.dropdown ? classes['right-nav-dropdown'] : classes['right-nav']}>
+            <NavLink to={'/my-account'} className={!dropdownOpen ? classes['nav-link'] : classes['nav-link-dropdown']}>Profile</NavLink>
+        </nav>
         );
 
 }

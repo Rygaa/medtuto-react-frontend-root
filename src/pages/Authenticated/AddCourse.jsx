@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { signUp } from '../../store/user-actions'
-import { userActions } from "../../store/user-slice";
 import Select from 'react-select'
-import { createNewYear, requestFaculties, createNewModel, removeCourse,requestModels, requestYears, requestCourses, createNewCourse, requestCourses2 } from '../../store/models-actions'
+import { removeCourse__, requestModels__, createNewCourse__ } from '../../store/proxy'
+import { requestFaculties__ } from '../../store/proxy'
+import { requestCourses2__ } from "../../store/proxy"
+import {requestYears__ } from "../../store/proxy"
+
+
+import Course__ from "../../components/Course__";
 
 const AddCourse = (props) => {
     const idToken = useSelector((state) => state.user.idToken);
@@ -16,33 +19,40 @@ const AddCourse = (props) => {
     const models = useSelector((state) => state.models.models);
     const courses = useSelector((state) => state.models.courses);
 
-    const [newCourse, setNewCourse] = useState('');
+    const [newCourseName, setNewCourseName] = useState('');
+    const [newCourseIndex, setNewCourseIndex] = useState('');
     const [selectedFaculty, setSelectedFaculty] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
     const [selectedModel, setSelectedModel] = useState('')
-
+    useEffect(() => {
+        dispatch(requestFaculties__({ idToken }))
+    }, [])
 
     const facultiesSelectOnChange = (e) => {
         setSelectedFaculty(e.pubId)
-        dispatch(requestYears({ idToken, facultyPubId: e.pubId }))
+        dispatch(requestYears__({ idToken, facultyPubId: e.pubId }))
     }
 
     const yearsSelectOnChange = (e) => {
         setSelectedYear(e.pubId)
-        dispatch(requestModels({ idToken, yearPubId: e.pubId }))
+        dispatch(requestModels__({ idToken, yearPubId: e.pubId }))
     }
     const modelsSelectOnChange = (e) => {
         console.log(e);
         setSelectedModel(e.pubId)
         console.log('selected:', selectedModel);
-        dispatch(requestCourses2({ idToken, modelPubId: e.pubId}))
+        dispatch(requestCourses2__({ idToken, modelPubId: e.pubId}))
     }
 
-    const newCourseOnChange = (e) => {
-        setNewCourse(e.target.value);
+    const newCourseNameOnChange = (e) => {
+        setNewCourseName(e.target.value);
+    }
+
+    const newCourseIndexOnChange = (e) => {
+        setNewCourseIndex(e.target.value);
     }
     const newCourseOnClick = (e) => {
-        dispatch(createNewCourse({ model: selectedModel, course: newCourse}));
+        dispatch(createNewCourse__({ model: selectedModel, newCourseName, newCourseIndex}));
     }
 
 
@@ -60,13 +70,17 @@ const AddCourse = (props) => {
     const removeOnClick = (e) => {
         console.log(e.target.attributes[0].nodeValue)
         const coursePubId = e.target.attributes[0].nodeValue
-        dispatch(removeCourse({ idToken, modelPubId: selectedModel, coursePubId }))
+        dispatch(removeCourse__({ idToken, modelPubId: selectedModel, coursePubId }))
     }
     const coursesList = courses.map((course) => (
-        <div style={{ display: "flex" }}>
-            <p key={Math.random()}>{course.name} {course.pubId}</p>
-            <button onClick={removeOnClick} data-pubid={course.pubId}>Remove</button>
-        </div>
+        <Course__ 
+            faculty={selectedFaculty} 
+            year={selectedYear} 
+            model={selectedModel} 
+            pubId={course.pubId}
+            name={course.name}
+            index={course.index}
+        />
     ));
 
     return (
@@ -77,7 +91,8 @@ const AddCourse = (props) => {
             <div style={{ height: "200px", overflowY: "scroll" }}>
                 {coursesList}
             </div>
-            <input value={newCourse} onChange={newCourseOnChange} />
+            <input value={newCourseName} onChange={newCourseNameOnChange} />
+            <input value={newCourseIndex} onChange={newCourseIndexOnChange} />
             <button onClick={newCourseOnClick}>ADD</button>
         </div>
 

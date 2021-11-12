@@ -5,11 +5,10 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 25px;
     margin-top: .9rem;
     justify-self: right;
-    margin-right: 3rem;
+    margin-right: 1.8rem;
 }
 
 .right-nav-dropdown {
@@ -19,6 +18,7 @@
 }
 
 .nav-link {
+    grid-row: 1 / 2;
     font-family: Raleway;
     font-style: normal;
     font-weight: 600;

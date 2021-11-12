@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from './user-slice'
-import modelsReducer from './models-slice'
+import userReducer from './User/user-slice'
+import modelsReducer from './Medical/joho__-slice'
 
 const store = configureStore({
     reducer: {
