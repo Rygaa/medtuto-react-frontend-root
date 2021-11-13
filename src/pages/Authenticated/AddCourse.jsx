@@ -52,6 +52,7 @@ const AddCourse = (props) => {
         setNewCourseIndex(e.target.value);
     }
     const newCourseOnClick = (e) => {
+        e.preventDefault();
         dispatch(createNewCourse__({ model: selectedModel, newCourseName, newCourseIndex}));
     }
 

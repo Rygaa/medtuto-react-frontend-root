@@ -23,6 +23,7 @@ const AddFaculty = (props) => {
         setNewFacultyIndex(e.target.value);
     }
     const newFacultyOnClick = (e) => {
+        e.preventDefault();
         dispatch(createNewFaculty__({idToken, facultyName: newFaculty, facultyIndex: newFacultyIndex}));
     }
 

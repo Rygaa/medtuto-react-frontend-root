@@ -48,7 +48,7 @@
         > input {
             display: none;
         }
-        > button {
+        > div {
             border: none;
             border-radius: 5px;
             height: 100%;
@@ -58,6 +58,10 @@
             color: $color3;
             border: 1px solid $color4;
             margin-right: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
        

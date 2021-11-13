@@ -43,6 +43,7 @@ const AddModel = (props) => {
     }
 
     const newModelOnClick = (e) => {
+        e.preventDefault();
         dispatch(createNewModel__({
             idToken, 
             yearPubId: selectedYear, 
@@ -87,9 +88,9 @@ const AddModel = (props) => {
                 {modelsList}
             </div>
             <form className={classes['form-add-model']}>
-                <label>
-                    <button>Upload picture</button>
-                    <input type="file" type="file" ref={imgInputRef}></input>
+                <label for="upload">
+                    <div>Upload picture</div>
+                    <input type="file" id="upload" type="file" ref={imgInputRef}></input>
                 </label>
                 <input value={newModelName} onChange={newModelNameOnChange} />
                 <input value={newModelIndex} onChange={newModelIndexOnChange} />
