@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { checkIdToken } from './store/User/user-actions'
 import { userActions } from './store/User/user-slice'
-import MyAccount from './pages/Authenticated/MyAccount';
 import Root__ from './pages/Authenticated/Root__';
 import Login from 'pages/notAuthenticated/Login';
+import Members from 'pages/Authenticated/Members';
 
 
 function App() {
@@ -23,21 +23,34 @@ function App() {
     }
     console.log(process.cwd());
   }, [])
+
+  if (isConnected == null) {
+    return (<Layout>
+      <div style={{fontSize:"25rem", textAlign:"center", color:"white"}}>WAITING</div>
+    </Layout>)
+  }
+
+
   return (
     <Layout>
-      <Switch>
-        <Route path="/medical" exact>
-          <Root__></Root__>
-        </Route>
-        <Route path="/user" exact>
-        </Route>
-        <Route path="/myaccount" exact>
-          <MyAccount></MyAccount>
-        </Route>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-      </Switch>
+      {isConnected &&
+        <Switch>
+          <Route path="/medical" exact>
+            <Root__></Root__>
+          </Route>
+          <Route path="/user" exact>
+            <Members />
+          </Route>
+        </Switch>
+
+      }
+      {!isConnected &&
+        <Switch>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+        </Switch>
+      }
     </Layout>
   );
 }

@@ -42,16 +42,27 @@ export const requestCourses2__ = ({ idToken, modelPubId }) => {
 }
 
 
-export const createNewCourse__ = ({ idToken, model, newCourseName, newCourseIndex }) => {
+export const createNewCourse__ = ({ idToken, model, newCourseName, newCourseDescription, newCourseIndex, newCourseImage }) => {
     return async (dispatch) => {
-        console.log(model);
-        const response = await axios.post(url + `/add-course`, {
-            modelPubId: model,
-            newCourseName,
-            newCourseIndex
-        })
+        // console.log(model);
+        // const response = await axios.post(url + `/add-course`, {
+        //     modelPubId: model,
+        //     newCourseName,
+        //     newCourseIndex,
+        //     newCourseDescription,
+        // })
 
+
+        const formData = new FormData();
+        formData.append("modelPubId", model);
+        formData.append("newCourseName", newCourseName);
+        formData.append("newCourseIndex", newCourseIndex);
+        formData.append("newCourseDescription", newCourseDescription);
+        formData.append("files", newCourseImage);
+        // formData.append("files", picture2);
+        const response = await axios.post(url + `/add-years-model`, formData)
         const data = response.data
+
         if (data.error) {
             console.error(data.error)
             return;

@@ -31,6 +31,9 @@ const Root__ = (props) => {
                 return <AddModel />
             case 'Add course':
                 return <AddCourse />
+            default: 
+                return <AddFaculty />
+
         }
     }
     useEffect(() => {
@@ -42,7 +45,7 @@ const Root__ = (props) => {
     return (
         <section className={classes['Root__']}>
             <select onChange={selectedPagesOnChange}>
-                <option>Add faculty</option>
+                <option selected>Add faculty</option>
                 <option>Add year</option>
                 <option>Add models</option>
                 <option>Add course</option>

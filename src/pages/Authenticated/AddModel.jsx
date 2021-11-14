@@ -16,6 +16,7 @@ const AddModel = (props) => {
 
     const [newModelName, setNewModelName] = useState('');
     const [newModelIndex, setNewModelIndex] = useState('');
+    const [newModelDescription, setNewModelDescription] = useState('');
     const [selectedFaculty, setSelectedFaculty] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
 
@@ -41,13 +42,19 @@ const AddModel = (props) => {
     const newModelIndexOnChange = (e) => {
         setNewModelIndex(e.target.value);
     }
+    const newModelDescriptionOnChange = (e) => {
+        setNewModelDescription(e.target.value);
+    }
+
+    
+
 
     const newModelOnClick = (e) => {
         e.preventDefault();
         dispatch(createNewModel__({
             idToken, 
             yearPubId: selectedYear, 
-            description: "x", 
+            description: newModelDescription,
             newModelName: newModelName,
             newModelIndex: newModelIndex,
             picture1: imgInputRef.current.files[0],
@@ -89,11 +96,12 @@ const AddModel = (props) => {
             </div>
             <form className={classes['form-add-model']}>
                 <label for="upload">
-                    <div>Upload picture</div>
+                    <div>Upload</div>
                     <input type="file" id="upload" type="file" ref={imgInputRef}></input>
                 </label>
-                <input value={newModelName} onChange={newModelNameOnChange} />
-                <input value={newModelIndex} onChange={newModelIndexOnChange} />
+                <input placeholder={'name'} value={newModelName} onChange={newModelNameOnChange} />
+                <input placeholder={'description'} value={newModelDescription} onChange={newModelDescriptionOnChange} />
+                <input placeholder={'index'} value={newModelIndex} onChange={newModelIndexOnChange} />
                 <button onClick={newModelOnClick}>ADD</button>
             </form>
         </section>

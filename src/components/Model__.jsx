@@ -13,6 +13,7 @@ const Model__ = (props) => {
         const yearPubId = e.target.attributes[0].nodeValue
         dispatch(removeYear__({ idToken, facultyPubId: props.faculty, yearPubId }))
     }
+    const image = `http://192.168.1.4:3005/models/${props.pubId}`;
 
     const updateOnClick = (e) => {
         const parentElement = e.target.parentElement
@@ -24,6 +25,7 @@ const Model__ = (props) => {
 
     return (
         <div className={classes['model']} data-pubid={props.pubId}>
+            <div style={{ backgroundImage: `url(${image})` }}></div>
             <input key={Math.random()} defaultValue={props.name} />
             <input key={Math.random()} defaultValue={props.index} />
             <button onClick={removeOnClick} data-pubid={props.pubId}>Remove</button>

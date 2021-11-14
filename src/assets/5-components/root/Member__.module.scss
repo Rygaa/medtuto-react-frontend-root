@@ -1,0 +1,16 @@
+@import '../../main.scss' ;
+
+
+.member {
+    display: grid;
+    grid-template-columns: 100px min-content;
+    background-color: rgba($font-color4, 50%);
+    margin: .3rem 0;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    > p {
+        @include mini-title-font();
+        color: $font-color1;
+        align-self: center;
+    }
+}

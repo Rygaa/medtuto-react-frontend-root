@@ -10,6 +10,7 @@ import { requestYears__ } from "store/proxy"
 import classes from "assets/6-pages/AddCourse.module.scss"
 
 import Course__ from "components/Course__";
+import { useRef } from "react";
 
 const AddCourse = (props) => {
     const idToken = useSelector((state) => state.user.idToken);
@@ -21,6 +22,8 @@ const AddCourse = (props) => {
 
     const [newCourseName, setNewCourseName] = useState('');
     const [newCourseIndex, setNewCourseIndex] = useState('');
+    const [newCourseDescription, setNewCourseDescription] = useState('');
+
     const [selectedFaculty, setSelectedFaculty] = useState('')
     const [selectedYear, setSelectedYear] = useState('')
     const [selectedModel, setSelectedModel] = useState('')
@@ -51,9 +54,19 @@ const AddCourse = (props) => {
     const newCourseIndexOnChange = (e) => {
         setNewCourseIndex(e.target.value);
     }
+    const newCourseDescriptionOnChange = (e) => {
+        setNewCourseDescription(e.target.value);
+    }
+
     const newCourseOnClick = (e) => {
         e.preventDefault();
-        dispatch(createNewCourse__({ model: selectedModel, newCourseName, newCourseIndex}));
+        dispatch(createNewCourse__({ 
+            model: selectedModel, 
+            newCourseName, 
+            newCourseDescription, 
+            newCourseIndex,
+            newCourseImage: imgInputRef.current.files[0],
+        }));
     }
 
 
@@ -92,6 +105,7 @@ const AddCourse = (props) => {
             index={course.index}
         />
     ));
+    const imgInputRef = useRef();
 
     return (
         <section className={classes['course-section']}>
@@ -104,7 +118,12 @@ const AddCourse = (props) => {
                 {coursesList}
             </div>
             <form className={classes['form-add-course']}>
+                <label for="upload">
+                    <div>Upload</div>
+                    <input type="file" id="upload" type="file" ref={imgInputRef}></input>
+                </label>
                 <input placeholder={'Name'} value={newCourseName} onChange={newCourseNameOnChange} />
+                <input placeholder={'description'} value={newCourseDescription} onChange={newCourseDescriptionOnChange} />
                 <input placeholder={'Index'} value={newCourseIndex} onChange={newCourseIndexOnChange} />
                 <button onClick={newCourseOnClick}>ADD</button>
             </form>
