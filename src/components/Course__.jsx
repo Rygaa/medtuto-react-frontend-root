@@ -1,7 +1,7 @@
 // import classes from './Header.module.scss'
 
 import { useDispatch, useSelector } from "react-redux";
-import { removeYear__, updateModel__ } from "store/proxy";
+import { removeCourse__, updateModel__ } from "store/proxy";
 import classes from "assets/5-components/root/Course__.module.scss"
 
 const Course__ = (props) => {
@@ -9,8 +9,7 @@ const Course__ = (props) => {
     const idToken = useSelector((state) => state.user.idToken);
 
     const removeOnClick = (e) => {
-        const yearPubId = e.target.attributes[0].nodeValue
-        dispatch(removeYear__({ idToken, facultyPubId: props.faculty, yearPubId }))
+        dispatch(removeCourse__({ idToken, modelPubId: props.model, coursePubId: props.pubId }))
     }
 
     const updateOnClick = (e) => {
